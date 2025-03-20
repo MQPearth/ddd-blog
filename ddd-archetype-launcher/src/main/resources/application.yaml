@@ -19,5 +19,5 @@ spring:
 
 graceful-response:
   print-exception-in-global-advice: true
-  response-style: 1
+  response-style: 0
   origin-exception-using-detail-message: true

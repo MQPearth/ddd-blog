@@ -1,4 +1,4 @@
-package com.feiniaojin.ddd.application.service.user.dto;
+package com.feiniaojin.ddd.application.service.user.dto.command;
 
 import lombok.Data;
 

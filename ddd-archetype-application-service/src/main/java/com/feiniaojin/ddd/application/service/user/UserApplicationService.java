@@ -1,6 +1,6 @@
 package com.feiniaojin.ddd.application.service.user;
 
-import com.feiniaojin.ddd.application.service.user.dto.RegisterCommand;
+import com.feiniaojin.ddd.application.service.user.dto.command.RegisterCommand;
 import com.feiniaojin.ddd.domain.entity.UserEntity;
 import com.feiniaojin.ddd.domain.factory.UserEntityFactory;
 import com.feiniaojin.ddd.domain.repository.UserEntityRepository;
@@ -16,20 +16,22 @@ import org.springframework.stereotype.Component;
 public class UserApplicationService {
 
     @Resource
-    UserEntityFactory entityFactory;
+    UserEntityFactory userEntityFactory;
 
     @Resource
-    UserEntityRepository repository;
+    UserEntityRepository userEntityRepository;
 
     @Resource
     UserQueryService userQueryService;
 
     public void register(RegisterCommand command) {
+        // CQRS分离查询
         if (userQueryService.exists(command.getName())) {
             throw new RuntimeException("用户名已占用");
         }
-        UserEntity entity = entityFactory.newInstance(command.getName(), command.getPassword());
+        UserEntity entity = userEntityFactory.newInstance(command.getName(), command.getPassword());
         entity.register();
-        repository.save(entity);
+        userEntityRepository.save(entity);
     }
+
 }

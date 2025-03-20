@@ -11,6 +11,21 @@
 
     <artifactId>ddd-archetype-infrastructure-cache</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.feiniaojin.ddd</groupId>
+            <artifactId>ddd-archetype-domain</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+    </dependencies>
+
     <properties>
     </properties>
 
