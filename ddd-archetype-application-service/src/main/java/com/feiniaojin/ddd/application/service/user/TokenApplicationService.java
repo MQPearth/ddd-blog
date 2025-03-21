@@ -49,6 +49,10 @@ public class TokenApplicationService {
         return new LoginView(token);
     }
 
+    /**
+     * 不通过api对外暴露的方法
+     * 不返回view
+     */
     public Integer auth(String token) {
         TokenEntity entity = tokenEntityRepository.load(token);
         if (Objects.isNull(entity)) {
