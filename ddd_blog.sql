@@ -7,6 +7,7 @@ CREATE TABLE `blog`
     `id`          int(0) NOT NULL AUTO_INCREMENT,
     `title`       varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     `content`     varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    `user_id` int(0) NOT NULL COMMENT '用户id',
     `create_date` datetime(0) NOT NULL,
     `status`      int(0) NOT NULL COMMENT '1-正常 2-已删除',
     PRIMARY KEY (`id`) USING BTREE

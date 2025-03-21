@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenEntityFactoryImpl implements TokenEntityFactory {
     @Override
-    public TokenEntity newInstance(String name, String token) {
+    public TokenEntity newInstance(String name, String token, Integer id) {
         if (StringUtils.isBlank(name)) {
             throw new RuntimeException("用户名不允许为空");
         }
@@ -26,6 +26,7 @@ public class TokenEntityFactoryImpl implements TokenEntityFactory {
 
         tokenEntity.setName(name);
         tokenEntity.setToken(token);
+        tokenEntity.setId(id);
 
         return tokenEntity;
     }

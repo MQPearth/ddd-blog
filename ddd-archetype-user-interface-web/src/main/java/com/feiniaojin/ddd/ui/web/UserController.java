@@ -1,6 +1,6 @@
 package com.feiniaojin.ddd.ui.web;
 
-import com.feiniaojin.ddd.application.service.user.LoginApplicationService;
+import com.feiniaojin.ddd.application.service.user.TokenApplicationService;
 import com.feiniaojin.ddd.application.service.user.UserApplicationService;
 import com.feiniaojin.ddd.application.service.user.dto.command.LoginCommand;
 import com.feiniaojin.ddd.application.service.user.dto.command.RegisterCommand;
@@ -25,7 +25,7 @@ public class UserController {
     UserApplicationService userApplicationService;
 
     @Resource
-    LoginApplicationService loginApplicationService;
+    TokenApplicationService tokenApplicationService;
 
     /**
      * 仅将应用层的方法向外暴露
@@ -37,6 +37,6 @@ public class UserController {
 
     @PostMapping("/login")
     public LoginView login(@RequestBody LoginCommand command) {
-        return loginApplicationService.login(command);
+        return tokenApplicationService.login(command);
     }
 }

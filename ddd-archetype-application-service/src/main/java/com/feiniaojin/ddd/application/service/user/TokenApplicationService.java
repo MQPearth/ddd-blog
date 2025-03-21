@@ -18,7 +18,7 @@ import java.util.Objects;
  * @author thy
  */
 @Component
-public class LoginApplicationService {
+public class TokenApplicationService {
 
     @Resource
     TokenEntityFactory tokenEntityFactory;
@@ -42,10 +42,18 @@ public class LoginApplicationService {
         // 充血模型执行业务逻辑
         String token = entity.login(command.getPassword());
 
-        TokenEntity tokenEntity = tokenEntityFactory.newInstance(command.getName(), token);
+        TokenEntity tokenEntity = tokenEntityFactory.newInstance(command.getName(), token, entity.getId());
         // 缓存的实现属于基础设施层
         tokenEntityRepository.save(tokenEntity);
         // 返回view
         return new LoginView(token);
+    }
+
+    public Integer auth(String token) {
+        TokenEntity entity = tokenEntityRepository.load(token);
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+        return entity.auth();
     }
 }

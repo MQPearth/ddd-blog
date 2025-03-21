@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * <p>User</p>
+ * <p>BlogData</p>
  *
  * @author thy
  */
@@ -22,6 +22,8 @@ public class BlogData {
     private String title;
 
     private String content;
+
+    private Integer userId;
 
     private LocalDateTime createDate;
 

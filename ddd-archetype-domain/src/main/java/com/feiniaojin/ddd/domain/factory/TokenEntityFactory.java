@@ -9,5 +9,5 @@ import com.feiniaojin.ddd.domain.entity.TokenEntity;
  * @author thy
  */
 public interface TokenEntityFactory {
-    TokenEntity newInstance(String name, String token);
+    TokenEntity newInstance(String name, String token, Integer id);
 }

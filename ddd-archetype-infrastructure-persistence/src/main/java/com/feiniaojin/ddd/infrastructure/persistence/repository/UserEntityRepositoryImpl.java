@@ -23,6 +23,9 @@ public class UserEntityRepositoryImpl implements UserEntityRepository {
     @Override
     public UserEntity load(String name) {
         UserData userData = userMapper.selectOne(new LambdaQueryWrapper<UserData>().eq(UserData::getName, name));
+        if (userData == null) {
+            return null;
+        }
         UserEntity entity = new UserEntity();
         entity.setId(userData.getId());
         entity.setName(userData.getName());
@@ -33,7 +36,11 @@ public class UserEntityRepositoryImpl implements UserEntityRepository {
 
     @Override
     public void save(UserEntity user) {
-        UserData userData = new UserData();
+        UserData userData = userMapper.selectById(user.getId());
+
+        if (userData == null) {
+            userData = new UserData();
+        }
         userData.setName(user.getName());
         userData.setPassword(user.getPassword());
         userData.setCreateDate(user.getCreateDate());
