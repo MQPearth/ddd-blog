@@ -1,6 +1,7 @@
 package com.feiniaojin.ddd.ui.web;
 
 import com.feiniaojin.ddd.application.service.blog.BlogApplicationService;
+import com.feiniaojin.ddd.application.service.blog.dto.DeleteCommand;
 import com.feiniaojin.ddd.application.service.blog.dto.PublishCommand;
 import com.feiniaojin.ddd.ui.web.config.Auth;
 import jakarta.annotation.Resource;
@@ -31,6 +32,13 @@ public class BlogController {
     public void publish(@RequestBody PublishCommand command, HttpServletRequest req) {
         command.setUserId((Integer) req.getAttribute("userId"));
         blogApplicationService.publish(command);
+    }
+
+    @Auth
+    @PostMapping("/delete")
+    public void delete(@RequestBody DeleteCommand command, HttpServletRequest req) {
+        command.setUserId((Integer) req.getAttribute("userId"));
+        blogApplicationService.delete(command);
     }
 
 }

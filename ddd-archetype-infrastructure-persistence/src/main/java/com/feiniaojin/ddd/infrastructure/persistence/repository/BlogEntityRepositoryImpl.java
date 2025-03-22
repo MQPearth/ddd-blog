@@ -7,6 +7,8 @@ import com.feiniaojin.ddd.infrastructure.persistence.mapper.BlogMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * <p>BlogEntityRepositoryImpl</p>
  *
@@ -36,18 +38,20 @@ public class BlogEntityRepositoryImpl implements BlogEntityRepository {
 
     @Override
     public void save(BlogEntity blog) {
-        BlogData blogData = blogMapper.selectById(blog.getId());
-
-        if (blogData == null) {
-            blogData = new BlogData();
+        if (Objects.isNull(blog)) {
+            throw new NullPointerException();
         }
-
+        BlogData blogData = new BlogData();
         blogData.setTitle(blog.getTitle());
         blogData.setContent(blog.getContent());
         blogData.setUserId(blog.getUserId());
         blogData.setStatus(blog.getStatus());
         blogData.setCreateDate(blog.getCreateDate());
-
-        blogMapper.insert(blogData);
+        if (Objects.isNull(blog.getId())) {
+            blogMapper.insert(blogData);
+        } else {
+            blogData.setId(blog.getId());
+            blogMapper.updateById(blogData);
+        }
     }
 }

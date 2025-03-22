@@ -8,6 +8,8 @@ import com.feiniaojin.ddd.infrastructure.persistence.mapper.UserMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * <p>UserEntityRepositoryImpl</p>
  *
@@ -36,14 +38,18 @@ public class UserEntityRepositoryImpl implements UserEntityRepository {
 
     @Override
     public void save(UserEntity user) {
-        UserData userData = userMapper.selectById(user.getId());
-
-        if (userData == null) {
-            userData = new UserData();
+        if (Objects.isNull(user)) {
+            throw new NullPointerException();
         }
+        UserData userData = new UserData();
         userData.setName(user.getName());
         userData.setPassword(user.getPassword());
         userData.setCreateDate(user.getCreateDate());
-        userMapper.insert(userData);
+        if (Objects.isNull(user.getId())) {
+            userMapper.insert(userData);
+        } else {
+            userData.setId(user.getId());
+            userMapper.updateById(userData);
+        }
     }
 }
